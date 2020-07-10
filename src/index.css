@@ -1,0 +1,284 @@
+html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fafafa;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+#goose {
+  display: block !important;
+  position: fixed;
+  bottom: -100px;
+  right: 1rem;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+#goose.active {
+  transition-duration: 1s;
+  transition-property: bottom;
+  transition-timing-function: ease;
+  bottom: -25px;
+}
+
+#goose > img {
+  width: 100px;
+  height: 100px;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.loading-splash {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loading-splash__logo,
+.loading-splash__message {
+  color: #9e9e9e;
+  text-align: center;
+}
+
+.particles-alertbar__content--with-icon:before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+
+.particles-breadcrumbs__breadcrumb + .particles-breadcrumbs__breadcrumb:before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+
+.particles-card {
+  background-color: #ffffff;
+}
+
+.particles-card__header-link {
+  display: block;
+  color: #757575;
+  text-decoration: none;
+}
+
+.particles-card__header-link:focus,
+.particles-card__header-link:hover {
+  color: #424242;
+}
+
+.particles-card__header-link .particles-card__header-caret {
+  color: #e0e0e0;
+}
+
+.particles-card__header-link:focus .particles-card__header-caret,
+.particles-card__header-link:hover .particles-card__header-caret {
+  color: #424242;
+}
+
+.particles-card--create > .particles-card__body {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.particles-page {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.particles-table__table-cell--dualline {
+  font-size: 0.8rem;
+  line-height: 1.5em;
+}
+
+.particles-popover,
+.particles-tooltip {
+  text-align: left;
+}
+
+.particles-popover .particles-form__actions {
+  margin-bottom: 0;
+}
+
+.particles-popover .particles-input__wrapper:first-child .particles-input__label {
+  margin-top: 0;
+}
+
+.goss-customer-search-row__domain {
+  width: 20%;
+}
+
+.goss-customer-search-row__organization {
+  width: 60%;
+}
+
+.goss-customer-search-row__status {
+  width: 10%;
+}
+
+.goss-vm-table-cell__error-message {
+  border-top: none;
+}
+
+.goss-vm-table-row__job-state {
+  width: 8%;
+}
+
+.goss-vm-table-row__job-state .fa-circle {
+  margin-top: .4rem
+}
+.goss-vm-table-row__checkbox {
+  width: 3%;
+}
+
+.goss-vm-table-row__no-border {
+  border-top: none;
+}
+
+.goss-vm-table-row__job-error-state {
+  background-color: #f44336;
+}
+
+.goss-vm-table__body-scroll {
+  overflow-y: auto;
+  max-height: 38vh;
+}
+
+.goss-vm-table-row__enrollment {
+  text-align: center;
+}
+
+.goss-vm-table-row__vm-enrolling {
+  text-align: center;
+  color: #757575;
+}
+
+.goss-vm-table-row__vm-enrolling:hover {
+  text-align: center;
+  color: black;
+}
+
+.goss-vm-table-row__order {
+  width: 15%;
+  text-align: center;
+}
+
+.goss-vm-table-row__os {
+  width: 15%;
+}
+
+.goss-vm-table-row__errow {
+  width: 5%;
+}
+
+.goss-request-status-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.goss-request-status-panel__inner {
+  text-align: center;
+}
+
+.goss-request-status-panel__loading {
+  color: #9e9e9e;
+}
+
+.goss-request-status-panel__error {
+  color: #d32f2f;
+}
+
+.goss-search-result-placeholder {
+  padding: 5rem 0;
+  color: #666;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.goss-chip {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.goss-chip__icon {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto 1rem;
+  padding: 0.6rem;
+  border: 1px dashed #0c7c84;
+  border-radius: 50%;
+  color: #0c7c84;
+  font-size: 1.25rem;
+}
+
+.goss-chip__label {
+  color: #0c7c84;
+  font-weight: 500;
+}
+
+.goss-chip:focus .goss-chip__icon,
+.goss-chip:hover .goss-chip__icon,
+.goss-chip:focus .goss-chip__label,
+.goss-chip:hover .goss-chip__label {
+  border-color: #16b9d4;
+  color: #16b9d4;
+}
+
+.goss-footer {
+  align-self: flex-end;
+}
+
+.goss-footer .particles-navigation-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.goss-utility_skeleton > * {
+  filter: blur(5px);
+}
+
+.enrollment-card-text {
+  font-size: 3rem;
+}
+
+hx-div div {
+  margin-left: 1.25rem;
+  padding-bottom: .5rem;
+}
+
+hx-tablist {
+  margin-left: 10em;
+}

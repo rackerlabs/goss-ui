@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+set -e
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: scripts/terraform <environment> "
+  echo ""
+  log "scripts/terraform requires an environment to be provided."
+  exit 1
+fi
+
+ENVIRONMENT="$1"
+BUCKET="goss-terraform-state-$ENVIRONMENT"
+
+terraform init -input=false -backend-config="bucket=$BUCKET" terraform
+terraform plan -input=false -var "environment=$ENVIRONMENT" -out terraform.plan terraform
+terraform apply terraform.plan

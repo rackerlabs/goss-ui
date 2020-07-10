@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+log () {
+  echo -e "\e[1m==> $@\e[0m"
+}
+
+error () {
+  echo -e "\e[31;1m$@\e[0m"
+}
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: scripts/integration <url>"
+  echo ""
+  error "scripts/integration requires a URL to be provided."
+  exit 1
+fi
+
+export GOSS_UI_INTEGRATION_URL=$1
+export PATH="./node_modules/.bin:$PATH"
+
+jest --rootDir integration \
+  --preset jest-puppeteer \
+  --setupFilesAfterEnv '<rootDir>/setupTests.js'

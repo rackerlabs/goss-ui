@@ -1,0 +1,21 @@
+.goss-input--control-prepend .particles-input__input {
+  order: 1;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.goss-input--control-prepend .particles-input__input:not(:focus) {
+  border-right: 1px solid #bdbdbd !important;
+}
+
+.goss-input--control-prepend .particles-input-and-controls__controls {
+  order: 0;
+  padding: 0.2rem 0.5rem;
+  background: #f5f5f5;
+  border: 1px solid #bdbdbd;
+  border-right: none;
+  border-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  font-size: 0.8rem;
+}

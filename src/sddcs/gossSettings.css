@@ -1,0 +1,38 @@
+td.noBorder {
+  border: none !important;
+}
+
+div.monitoring-config-view-left {
+  float: left;
+  margin-right: 2em;
+}
+
+.particles-key-value-pair__key--horizontal {
+  text-align: left;
+}
+
+.particles-page__main-header--withSections {
+  border-bottom: none !important;
+}
+
+.particles-key-value-pair {
+  display: block !important;
+}
+
+.monitoring-table-row-name {
+  margin-top: 8px;
+}
+
+.actionButtonGroup {
+  width: 100%;
+  margin: auto;
+}
+
+.actions {
+  float: left;
+}
+
+.filters {
+  margin-left: 15%;
+  float: right;
+}

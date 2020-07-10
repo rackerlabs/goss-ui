@@ -1,0 +1,51 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "jsx-a11y",
+    "import"
+  ],
+  "globals": {
+    "page": "readonly"
+  },
+  "rules": {
+    "no-console": [
+      "error"
+    ],
+    "no-debugger": [
+      "error"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "import/no-commonjs": [
+      "error"
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "jsx-a11y/no-autofocus": [
+      "off"
+    ],
+    "no-unused-expressions": [
+      "error"
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ]
+  }
+}

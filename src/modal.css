@@ -1,0 +1,124 @@
+/* GOSS Modal Customizations */
+
+.goss-modal .particles-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.goss-modal .particles-modal--content {
+  max-width: 600px;
+}
+
+.goss-modal--captive .particles-modal__close {
+  display: none;
+}
+
+.goss-modal .particles-modal__body:last-child {
+  margin-bottom: 0;
+}
+
+.goss-modal .particles-form__actions {
+  margin-bottom: 0;
+  justify-content: center;
+}
+
+/* Role Check Modal Customization */
+
+.goss-modal__role .particles-modal__footer .particles-button {
+  display: block;
+  width: 100%;
+}
+
+/* Infinite Spinner Modal */
+
+.goss-modal--spinner .particles-modal__steps {
+  color: #0c7c84;
+}
+
+/* Enrollment Modal */
+.goss-modal--enrollment .particles-modal__header {
+  text-align: center;
+}
+
+.goss-modal--enrollment .particles-modal--content {
+  padding: 0.25rem;
+  width: 45%;
+  max-width: 75%;
+  margin: 5% auto;
+}
+
+.goss-modal--enrollment .goss-form--enrollment {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 0.5%;
+  padding: 5px 10px;
+  max-width: 100%;
+  border-top: solid 1px #eeeeee;
+  margin-bottom: auto;
+}
+
+.goss-modal--enrollment .goss-input__enrollment--username {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.goss-modal--enrollment .goss-input__enrollment--password {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.goss-modal--enrollment .particles-form__actions {
+  margin-top: 0px;
+  grid-row: 1;
+  grid-column: 2;
+  align-items: flex-end;
+}
+
+.goss-modal--enrollment .fa-dollar-sign {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.goss-order-submission__terms {
+  grid-row: 2;
+  grid-column: 2;
+  align-items: flex-end;
+  text-align: center;
+}
+
+/* Education Modal - MOVE TO PARTICLES */
+
+.goss-modal--education .particles-modal--content {
+  padding: 3rem;
+}
+
+.goss-modal--education .particles-modal__header,
+.goss-modal--education .particles-modal__body,
+.goss-modal--education .particles-modal__footer {
+  padding: 0;
+}
+
+.goss-modal--education .particles-modal__header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.goss-modal--education .particles-modal__steps,
+.goss-modal--education .particles-modal__body {
+  margin-bottom: 2rem;
+}
+
+.goss-modal--education .particles-modal__steps {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.goss-modal--education .particles-modal__step {
+  margin: 0 0.75rem 0;
+  color: #b6e3eb;
+  text-align: center;
+}
