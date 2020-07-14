@@ -113,17 +113,13 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                   </Table.Cell>
                 </Table.Row>
               </Table.Header>
-              <Table.Body>
                 {tagGroups.map(tagGroup => {
                   return (
                     <React.Fragment>
                       <MonitoringTableRow tagGroup={tagGroup} id={"monitoring-config-row-" + tagGroup.id}/>
-                      <MonitoringConfigToggleRow tagGroup={tagGroup} id={"monitoring-config-toggle-row-" + tagGroup.id}/>
-                      <MonitoringConfigRowModify tagGroup={tagGroup} id={"monitoring-config-settings-row-" + tagGroup.id}/>
                     </React.Fragment>
                   )
                 })}
-              </Table.Body>
             </Table>
           </Table.Wrapper>
         </Page.MainBodySection>
@@ -132,8 +128,10 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
 
   const MonitoringTableRow = ({ tagGroup }) => {
     const [isShowingMonitoringConfig, setIsShowingMonitoringConfig] = React.useState(false);
+    const [canModifyMonitoringRow, setCanModifyMonitoringRow] = React.useState(false);
 
     return (
+      <Table.Body>
         <Table.Row data-testid="monitoring-table-row">
           <Table.Cell compact={true}>
             <input type="checkbox" data-testid="monitoring-table-row-checkbox"/>
@@ -158,14 +156,15 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
           <Table.Cell compact={true} data-testid="monitoring-table-row-last-modified-date">{tagGroup.lastModifiedDate}</Table.Cell>
           <Table.Cell compact={true} data-testid="monitoring-table-row-editor-email">{tagGroup.editorEmail}</Table.Cell>
         </Table.Row>
+        <MonitoringConfigToggleRow tagGroup={tagGroup} isShowingMonitoringConfig={isShowingMonitoringConfig} setCanModifyMonitoringRow={setCanModifyMonitoringRow} canModifyMonitoringRow={canModifyMonitoringRow}/>
+        <MonitoringConfigSettingsRow tagGroup={tagGroup} isShowingMonitoringConfig={isShowingMonitoringConfig} canModifyMonitoringRow={canModifyMonitoringRow}/>
+      </Table.Body>
     );
   };
 
-  const MonitoringConfigToggleRow = ({ tagGroup }) => {
-    const [canModifyMonitoringRow, setCanModifyMonitoringRow] = React.useState(false);
-
+  const MonitoringConfigToggleRow = ({ tagGroup, isShowingMonitoringConfig, setCanModifyMonitoringRow, canModifyMonitoringRow }) => {
     return (
-        <Table.Row style={{display: false ? 'block' : 'none' }}>
+        <Table.Row style={{display: isShowingMonitoringConfig ? 'table-row' : 'none' }}>
           <Table.Cell colSpan={5} className={"noBorder"}>
             <div>
                 <Button onClick={() => {setCanModifyMonitoringRow(!canModifyMonitoringRow);}} data-testid="display-monitoring-config-modify">
@@ -177,8 +176,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
     );
   };
 
-  const MonitoringConfigRowModify = ({ tagGroup }) => {
-    const [canModifyMonitoringRow, setCanModifyMonitoringRow] = React.useState(false);
+  const MonitoringConfigSettingsRow = ({ tagGroup, isShowingMonitoringConfig, canModifyMonitoringRow }) => {
 
     const configValues = {
       "linux": {
@@ -195,7 +193,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
       }
     }
     if(canModifyMonitoringRow) return (
-        <Table.Row style={{display: false ? 'block' : 'none' }}>
+        <Table.Row style={{display: isShowingMonitoringConfig ? 'table-row' : 'none' }}>
           <Table.Cell colSpan={5} className={"noBorder"}>
             <Grid colSpan={4}>
               <Grid.Cell sm={12} md={6} lg={6}>
@@ -254,7 +252,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
     )
     else{
       return (
-      <Table.Row style={{display: false ? 'block' : 'none' }}>
+      <Table.Row style={{display: isShowingMonitoringConfig ? 'table-row' : 'none' }}>
         <Table.Cell colSpan={5} className={"noBorder"}>
           <div>
             <div>
