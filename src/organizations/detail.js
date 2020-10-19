@@ -152,7 +152,7 @@ export const OrganizationDetail = ({ match }) => {
             <Grid withGutters>
               {sddcs.map(sddc => (
                 <Grid.Cell xs={12} sm={6} md={4} verticalGutter key={sddc.id}>
-                  <SDDCCard organization={organization} sddc={sddc} domain={domain}/>
+                  <SDDCCard organization={organization} sddc={sddc} domain={domain} />
                 </Grid.Cell>
               ))}
             </Grid>

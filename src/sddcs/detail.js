@@ -11,10 +11,10 @@ import { getSDDC } from '../data/sddcs';
 import { listVMs } from '../data/vms';
 import { GOSSEnrollmentSection } from './goss';
 import { GOSSSettingsSection } from './gossSettings';
-import './gossSettings.css';
+import '../gossSettings.css';
 
-import HelixUI from "helix-ui/dist/js/helix-ui.min"
-HelixUI.initialize()
+import HelixUI from 'helix-ui/dist/js/helix-ui.min';
+HelixUI.initialize();
 
 export const SDDCDetail = ({ match }) => {
   const [request, setRequest] = React.useState({ loading: false, cached: false, error: null });
@@ -94,36 +94,36 @@ export const SDDCDetail = ({ match }) => {
             {sddc.name}
           </Breadcrumbs.Breadcrumb.Current>
         </Breadcrumbs>
-        <Page.MainHeader title={title} category="Software Defined Data Center" withSections={true} action={action}/>
+        <Page.MainHeader title={title} category="Software Defined Data Center" withSections={true} action={action} />
         <Page.MainBody>
-            <hx-tabset>
-              <hx-tablist>
-                <hx-tab current={"true"}>Services</hx-tab>
-                <hx-tab>Settings</hx-tab>
-              </hx-tablist>
-              <hx-tabcontent>
-                <hx-tabpanel open>
-                  <GOSSEnrollmentSection
-                    domain={domain}
-                    jobs={jobs}
-                    setJobs={setJobs}
-                    organization={organization}
-                    sddc={sddc}
-                    vms={vms}
-                  />
-                </hx-tabpanel>
-                <hx-tabpanel>
-                  <GOSSSettingsSection
-                    domain={domain}
-                    jobs={jobs}
-                    setJobs={setJobs}
-                    organization={organization}
-                    sddc={sddc}
-                    vms={vms}
-                  />
-                </hx-tabpanel>
-              </hx-tabcontent>
-            </hx-tabset>
+          <hx-tabset>
+            <hx-tablist>
+              <hx-tab current={'true'}>Services</hx-tab>
+              <hx-tab>Settings</hx-tab>
+            </hx-tablist>
+            <hx-tabcontent>
+              <hx-tabpanel open>
+                <GOSSEnrollmentSection
+                  domain={domain}
+                  jobs={jobs}
+                  setJobs={setJobs}
+                  organization={organization}
+                  sddc={sddc}
+                  vms={vms}
+                />
+              </hx-tabpanel>
+              <hx-tabpanel>
+                <GOSSSettingsSection
+                  domain={domain}
+                  jobs={jobs}
+                  setJobs={setJobs}
+                  organization={organization}
+                  sddc={sddc}
+                  vms={vms}
+                />
+              </hx-tabpanel>
+            </hx-tabcontent>
+          </hx-tabset>
         </Page.MainBody>
       </RequestStatusPanel>
     </React.Fragment>

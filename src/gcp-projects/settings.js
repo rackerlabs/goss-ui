@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Page, Table, Grid, KeyValuePair } from '@janus.team/janus-particles';
-import { fetch } from '../../data/fetch';
-import { usePoller } from '../../data/poller';
+import { fetch } from '../data/fetch';
+import { usePoller } from '../data/poller';
 
 import '../gossSettings.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@janus.team/janus-particles/dist/particles.css';
 
-export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc, vms }) => {
+export const GCPSettingsSection = ({ project, jobs, setJobs, vms }) => {
   const ConfigureAntiVirus = ({}) => {
     return <Page.MainBodySection title="Anti-Virus"></Page.MainBodySection>;
   };
@@ -20,7 +20,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
     return <Page.MainBodySection title="Disaster Recovery"></Page.MainBodySection>;
   };
 
-  const ConfigureMonitoring = ({ sddcId, domain }) => {
+  const ConfigureMonitoring = ({ project }) => {
     const [request, setRequest] = React.useState({ loading: false, cached: false, error: null });
     const [configValues, setConfigValues] = React.useState({});
     const tagGroups = [
@@ -35,10 +35,12 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
       },
     ];
 
-    const getConfigValues = async ({ sddcId, domain }) => {
-      const config = domain ? { headers: { 'X-Tenant-Id': domain } } : {};
-      const res = await fetch(`/api/vmc/v1.0/metrics/${sddcId.id}/monitoring`, config);
-      const body = await res.json();
+    const getConfigValues = async ({ project }) => {
+      const config = project ? { headers: { 'X-Tenant-Id': project } } : {};
+      //TODO: Replace with appropriate endpoint
+      //   const res = await fetch(`/api/vmc/v1.0/metrics/${sddcId.id}/monitoring`, config);
+      //   const body = await res.json();
+      const body = { data: { items: [] } };
       return body.data.items;
     };
 
@@ -47,8 +49,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
         setRequest({ ...request, loading: true });
 
         try {
-          const [configValues] = await Promise.all([getConfigValues({ sddcId, domain })]);
-
+          const [configValues] = await Promise.all([getConfigValues({ project })]);
           setConfigValues(configValues);
           setRequest({ ...request, loading: false, cached: true, error: null });
         } catch (err) {
@@ -56,6 +57,8 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
         }
       })();
     }, 30000);
+
+    const configValuesPassThrough = () => configValues;
 
     const addMonitoringGroup = ({}) => {
       // TODO: Add functionality
@@ -98,7 +101,11 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
             {tagGroups.map(tagGroup => {
               return (
                 <React.Fragment>
-                  <MonitoringTableRow tagGroup={tagGroup} id={'monitoring-config-row-' + tagGroup.id} />
+                  <MonitoringTableRow
+                    tagGroup={tagGroup}
+                    id={'monitoring-config-row-' + tagGroup.id}
+                    configValuesPassThrough={configValuesPassThrough}
+                  />
                 </React.Fragment>
               );
             })}
@@ -108,7 +115,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
     );
   };
 
-  const MonitoringTableRow = ({ tagGroup }) => {
+  const MonitoringTableRow = ({ tagGroup, configValuesPassThrough }) => {
     const [isShowingMonitoringConfig, setIsShowingMonitoringConfig] = React.useState(false);
     const [canModifyMonitoringRow, setCanModifyMonitoringRow] = React.useState(false);
 
@@ -156,6 +163,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
           tagGroup={tagGroup}
           isShowingMonitoringConfig={isShowingMonitoringConfig}
           canModifyMonitoringRow={canModifyMonitoringRow}
+          configValuesPassThrough={configValuesPassThrough}
         />
       </Table.Body>
     );
@@ -185,7 +193,13 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
     );
   };
 
-  const MonitoringConfigSettingsRow = ({ tagGroup, isShowingMonitoringConfig, canModifyMonitoringRow }) => {
+  const MonitoringConfigSettingsRow = ({
+    tagGroup,
+    isShowingMonitoringConfig,
+    canModifyMonitoringRow,
+    configValuesPassThrough,
+  }) => {
+    //Hardcoded pass in using passthrough
     const configValues = {
       linux: {
         alarms_cpu: 95,
@@ -213,7 +227,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_cpu"
                     data-testid="sddc-monitoring-linux-alarms-cpu"
-                    value={configValues.linux.alarms_cpu}
+                    value={!!configValues && configValues.linux.alarms_cpu}
                     placeholder="EX: 95"
                   />
                 </KeyValuePair>
@@ -223,7 +237,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_memory"
                     data-testid="sddc-monitoring-linux-alarms-memory"
-                    value={configValues.linux.alarms_memory}
+                    value={!!configValues && configValues.linux.alarms_memory}
                     placeholder="EX: 95"
                   />
                 </KeyValuePair>
@@ -233,7 +247,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_disk_free_space"
                     data-testid="sddc-monitoring-linux-alarms-disk-free-space"
-                    value={configValues.linux.alarms_disk_free_space}
+                    value={!!configValues && configValues.linux.alarms_disk_free_space}
                     placeholder="EX: 524288000"
                   />{' '}
                   Bytes
@@ -244,7 +258,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_disk_used_percent"
                     data-testid="sddc-monitoring-linux-alarms-disk-used-percent"
-                    value={configValues.linux.alarms_disk_used_percent}
+                    value={!!configValues && configValues.linux.alarms_disk_used_percent}
                     placeholder="EX: 95"
                   />
                 </KeyValuePair>
@@ -257,7 +271,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_cpu"
                     data-testid="sddc-monitoring-windows-alarms-cpu"
-                    value={configValues.windows.alarms_cpu}
+                    value={!!configValues && configValues.windows.alarms_cpu}
                     placeholder="EX: 95"
                   />
                 </KeyValuePair>
@@ -267,7 +281,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_memory"
                     data-testid="sddc-monitoring-windows-alarms-memory"
-                    value={configValues.windows.alarms_memory}
+                    value={!!configValues && configValues.windows.alarms_memory}
                     placeholder="EX: 95"
                   />
                 </KeyValuePair>
@@ -277,7 +291,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_disk_free_space"
                     data-testid="sddc-monitoring-windows-alarms-disk-free-space"
-                    value={configValues.windows.alarms_disk_free_space}
+                    value={!!configValues && configValues.windows.alarms_disk_free_space}
                     placeholder="EX: 500"
                   />
                 </KeyValuePair>
@@ -287,7 +301,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                     type="text"
                     name="alarms_disk_used_percent"
                     data-testid="sddc-monitoring-windows-alarms-disk-used-percent"
-                    value={configValues.windows.alarms_disk_used_percent}
+                    value={!!configValues && configValues.windows.alarms_disk_used_percent}
                     placeholder="EX: 95"
                   />
                 </KeyValuePair>
@@ -316,38 +330,38 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
                   <h3>Linux</h3>
                   <KeyValuePair size="medium">
                     <span>CPU Alert:</span>
-                    <span>{configValues.linux.alarms_cpu}%</span>
+                    <span>{!!configValues && configValues.linux.alarms_cpu}%</span>
                   </KeyValuePair>
                   <KeyValuePair size="medium">
                     <span>Memory Alert:</span>
-                    <span>{configValues.linux.alarms_memory}%</span>
+                    <span>{!!configValues && configValues.linux.alarms_memory}%</span>
                   </KeyValuePair>
                   <KeyValuePair size="medium">
                     <span>Disk Space Free Alert:</span>
-                    <span>{configValues.linux.alarms_disk_free_space} MB</span>
+                    <span>{!!configValues && configValues.linux.alarms_disk_free_space} MB</span>
                   </KeyValuePair>
                   <KeyValuePair size="medium">
                     <span>Disk Space Used Alert:</span>
-                    <span>{configValues.linux.alarms_disk_used_percent}%</span>
+                    <span>{!!configValues && configValues.linux.alarms_disk_used_percent}%</span>
                   </KeyValuePair>
                 </div>
                 <div className={'monitoring-config-view-left'}>
                   <h3>Windows</h3>
                   <KeyValuePair size="medium">
                     <span>CPU Alert:</span>
-                    <span>{configValues.windows.alarms_cpu}%</span>
+                    <span>{!!configValues && configValues.windows.alarms_cpu}%</span>
                   </KeyValuePair>
                   <KeyValuePair size="medium">
                     <span>Memory Alert:</span>
-                    <span>{configValues.windows.alarms_memory}%</span>
+                    <span>{!!configValues && configValues.windows.alarms_memory}%</span>
                   </KeyValuePair>
                   <KeyValuePair size="medium">
                     <span>Disk Space Free Alert:</span>
-                    <span>{configValues.windows.alarms_disk_free_space} MB</span>
+                    <span>{!!configValues && configValues.windows.alarms_disk_free_space} MB</span>
                   </KeyValuePair>
                   <KeyValuePair size="medium">
                     <span>Disk Space Used Alert:</span>
-                    <span>{configValues.windows.alarms_disk_used_percent}%</span>
+                    <span>{!!configValues && configValues.windows.alarms_disk_used_percent}%</span>
                   </KeyValuePair>
                 </div>
               </div>
@@ -378,7 +392,7 @@ export const GOSSSettingsSection = ({ domain, jobs, setJobs, organization, sddc,
         <ConfigureAntiVirus />
         <ConfigureBackup />
         <ConfigureDisasterRecovery />
-        <ConfigureMonitoring sddcId={sddc} domain={domain} />
+        <ConfigureMonitoring project={project} />
         <ConfigurePatching />
       </Page.MainBody>
     );

@@ -151,7 +151,7 @@ code {
 }
 
 .goss-vm-table-row__job-state .fa-circle {
-  margin-top: .4rem
+  margin-top: 0.4rem;
 }
 .goss-vm-table-row__checkbox {
   width: 3%;
@@ -276,7 +276,7 @@ code {
 
 hx-div div {
   margin-left: 1.25rem;
-  padding-bottom: .5rem;
+  padding-bottom: 0.5rem;
 }
 
 hx-tablist {
