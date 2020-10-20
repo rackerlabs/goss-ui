@@ -3,15 +3,23 @@ import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Collection, Grid, KeyValuePair, Modal, Page } from '@janus.team/janus-particles';
+import {
+  Button,
+  Card,
+  Collection,
+  Grid,
+  KeyValuePair,
+  Modal,
+  Page,
+} from '@janus.team/janus-particles';
 import { usePoller } from '../../data/poller';
 import { listJobs } from '../../data/vmc/jobs';
 import { listOrganizations } from '../../data/vmc/organizations';
 import { CardViewSkeleton } from '../../common/CardViewSkeleton';
 import { RequestStatusPanel } from '../../common/RequestStatusPanel';
 import { Redirect } from 'react-router-dom';
-import { AccountStatusCheck } from '../common/AccountStatusCheck';
-import { VMCRoleCheck } from '../common/VMCRoleCheck';
+import { AccountStatusCheck } from '../../common/AccountStatusCheck';
+import { VMCRoleCheck } from '../../common/VMCRoleCheck';
 
 const PendingCreationModal = () => {
   return (

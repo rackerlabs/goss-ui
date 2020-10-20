@@ -1,4 +1,4 @@
-import { fetch } from '../data/fetch';
+import { fetch } from '../fetch';
 
 export const getCustomerAccount = async (type, accountId) => {
   const res = await fetch(`/api/customer/v1/customer_accounts/${type}/${accountId}`);

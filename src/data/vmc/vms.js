@@ -1,4 +1,4 @@
-import { fetch } from '../data/fetch';
+import { fetch } from '../fetch';
 import _ from 'lodash';
 
 export const GOSSServices = {

@@ -2,8 +2,8 @@ import React from 'react';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { render, getByTestId } from '@testing-library/react';
 import { OrganizationList, transformOrganizationList } from './list';
-import * as jobsData from '../data/jobs';
-import * as orgsData from '../data/organizations';
+import * as jobsData from '../../data/jobs';
+import * as orgsData from '../../data/organizations';
 import { createMemoryHistory } from 'history';
 
 const organizations = [

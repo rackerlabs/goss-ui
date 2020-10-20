@@ -3,11 +3,11 @@ import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { ApplicationContainer } from '@janus.team/janus-copilot/cjs/janus-copilot.js';
 import { Page } from '@janus.team/janus-particles';
-import { OrganizationList, OrganizationDetail } from './organizations';
-import { ProjectList, ProjectDetail } from './gcp-projects';
+import { OrganizationList, OrganizationDetail } from './vmc/organizations';
+import { ProjectList, ProjectDetail } from './gcp';
 import { Footer } from './layout/Footer';
 import * as copilot from './copilot';
-import { SDDCDetail } from './sddcs';
+import { SDDCDetail } from './vmc/sddcs';
 
 const CustomerApp = ({ match }) => {
   const copilotProps = {

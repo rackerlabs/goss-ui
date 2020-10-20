@@ -1,7 +1,7 @@
 import React from 'react';
 import { AlertBar, Button, Collection, Modal, Page, Table, Popover, Card, Grid } from '@janus.team/janus-particles';
 import _ from 'lodash';
-import { VmErrorTableRow } from '../sddcs/vmErrorTableRow';
+import { VmErrorTableRow } from '../vmc/sddcs/vmErrorTableRow';
 
 export const GCPVMDetailsSection = ({ jobs, project, vms }) => {
   const [isWaitingForJobUpdate, setWaitingForJobUpdate] = React.useState(false);

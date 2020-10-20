@@ -1,5 +1,15 @@
 import React from 'react';
-import { AlertBar, Button, Collection, Modal, Page, Table, Popover, Card, Grid } from '@janus.team/janus-particles';
+import {
+  AlertBar,
+  Button,
+  Collection,
+  Modal,
+  Page,
+  Table,
+  Popover,
+  Card,
+  Grid
+} from '@janus.team/janus-particles';
 import { listJobs } from '../../data/vmc/jobs';
 import _ from 'lodash';
 import {
@@ -10,10 +20,10 @@ import {
   isPoweredOn,
   managedInstanceId,
   generateVMEnrollmentCSVData,
-} from '../data/vms';
+} from '../../data/vmc/vms';
 import { EnrollModal } from './enrollmentOrderSubmission';
 import { VmErrorTableRow } from './vmErrorTableRow';
-import GenerateCSV from '../common/GenerateCSV';
+import GenerateCSV from '../../common/GenerateCSV';
 
 export const GOSSEnrollmentSection = ({ domain, jobs, setJobs, organization, sddc, vms }) => {
   const [isDirty, setDirty] = React.useState(false);

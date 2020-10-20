@@ -1,9 +1,15 @@
 import React from 'react';
-import { Button, Page, Table, Grid, KeyValuePair } from '@janus.team/janus-particles';
-import { fetch } from '../../data/fetch';
-import { usePoller } from '../../data/poller';
+import {
+  Button,
+  Page,
+  Table,
+  Grid,
+  KeyValuePair
+} from '@janus.team/janus-particles';
+import {fetch} from "../../data/fetch";
+import {usePoller} from "../../data/poller";
 
-import '../gossSettings.css';
+import '../../gossSettings.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@janus.team/janus-particles/dist/particles.css';
 
