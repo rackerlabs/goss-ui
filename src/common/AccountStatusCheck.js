@@ -3,7 +3,7 @@ import { context } from '@janus.team/janus-copilot/cjs/janus-copilot.js';
 import { Modal } from '@janus.team/janus-particles';
 import { CardViewSkeleton } from './CardViewSkeleton';
 import { RequestStatusPanel } from './RequestStatusPanel';
-import { getCustomerAccount, isAccountActive } from '../data/customer';
+import { getCustomerAccount, isAccountActive } from '../data/vmc/customer';
 
 export const AccountStatusCheck = ({ children, sessionContext = context.session }) => {
   const session = React.useContext(sessionContext);

@@ -12,14 +12,14 @@ import {
   Modal,
   Page,
 } from '@janus.team/janus-particles';
-import { usePoller } from '../data/poller';
-import { listJobs } from '../data/jobs';
-import { listOrganizations } from '../data/organizations';
-import { CardViewSkeleton } from '../common/CardViewSkeleton';
-import { RequestStatusPanel } from '../common/RequestStatusPanel';
+import { usePoller } from '../../data/poller';
+import { listJobs } from '../../data/vmc/jobs';
+import { listOrganizations } from '../../data/vmc/organizations';
+import { CardViewSkeleton } from '../../common/CardViewSkeleton';
+import { RequestStatusPanel } from '../../common/RequestStatusPanel';
 import { Redirect } from 'react-router-dom';
-import { AccountStatusCheck } from '../common/AccountStatusCheck';
-import { VMCRoleCheck } from '../common/VMCRoleCheck';
+import { AccountStatusCheck } from '../../common/AccountStatusCheck';
+import { VMCRoleCheck } from '../../common/VMCRoleCheck';
 
 const PendingCreationModal = () => {
   return (
@@ -109,30 +109,30 @@ export const OrganizationList = () => {
   }
 
   return (
-  <VMCRoleCheck>
-    <AccountStatusCheck>
-      <React.Fragment>
-        <Helmet>
-          <title>Organizations</title>
-        </Helmet>
-        <RequestStatusPanel {...request}>
-          <Page.MainHeader title="VMware Cloud Organizations" />
-          <Page.MainBody>
-            <Page.MainBodySection>
-              <Grid withGutters>
-                {isOrgCreationComplete(transformedOrgs) &&
-                  transformedOrgs.map(org => (
-                    <Grid.Cell xs={12} sm={6} md={4} verticalGutter key={org.id}>
-                      <OrganizationCard organization={org} />
-                    </Grid.Cell>
-                  ))}
-              </Grid>
-            </Page.MainBodySection>
-          </Page.MainBody>
-        </RequestStatusPanel>
-      </React.Fragment>
-    </AccountStatusCheck>
-  </VMCRoleCheck>
+    <VMCRoleCheck>
+      <AccountStatusCheck>
+        <React.Fragment>
+          <Helmet>
+            <title>Organizations</title>
+          </Helmet>
+          <RequestStatusPanel {...request}>
+            <Page.MainHeader title="VMware Cloud Organizations" />
+            <Page.MainBody>
+              <Page.MainBodySection>
+                <Grid withGutters>
+                  {isOrgCreationComplete(transformedOrgs) &&
+                    transformedOrgs.map(org => (
+                      <Grid.Cell xs={12} sm={6} md={4} verticalGutter key={org.id}>
+                        <OrganizationCard organization={org} />
+                      </Grid.Cell>
+                    ))}
+                </Grid>
+              </Page.MainBodySection>
+            </Page.MainBody>
+          </RequestStatusPanel>
+        </React.Fragment>
+      </AccountStatusCheck>
+    </VMCRoleCheck>
   );
 };
 

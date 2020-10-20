@@ -1,4 +1,4 @@
-import { fetch } from '../data/fetch';
+import { fetch } from '../fetch';
 
 export const listSDDCs = async ({ organizationId, domain }) => {
   try {

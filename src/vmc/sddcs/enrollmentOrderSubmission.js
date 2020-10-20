@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Modal, Table, Tooltip } from '@janus.team/janus-particles';
-import { GOSSServices, enrollVM } from '../data/vms';
+import { GOSSServices, enrollVM } from '../../data/vmc/vms';
 import classNames from 'classnames';
 
 export const EnrollModal = ({ onClose, ...props }) => {

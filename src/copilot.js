@@ -14,12 +14,14 @@ export const overridePrimaryNavLinks = (config, links) => {
         },
         utilityNavigation: {
           ...config.catalog.catalog.utilityNavigation,
-          links: [{
-            label: 'Operating System Services',
-            rel: 'goss',
-            href: '/goss'
-          }]
-        }
+          links: [
+            {
+              label: 'Operating System Services',
+              rel: 'goss',
+              href: '/goss',
+            },
+          ],
+        },
       },
     },
   };
@@ -37,15 +39,18 @@ export const customerCatalog = config => {
       label: 'Amazon Web Services',
       rel: 'aws',
       to: '/goss/aws/accounts',
-    }, {
+    },
+    {
       label: 'Azure',
       rel: 'azure',
       to: '/goss/azure/accounts',
-    }, {
+    },
+    {
       label: 'Google Cloud Platform',
       rel: 'gcp',
-      to: '/goss/gcp/accounts',
-    }, {
+      to: '/goss/gcp/projects',
+    },
+    {
       label: 'VMware Cloud on AWS',
       rel: 'vmc',
       to: '/goss/vmc/organizations',

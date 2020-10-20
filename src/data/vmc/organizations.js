@@ -1,4 +1,4 @@
-import { fetch } from '../data/fetch';
+import { fetch } from '../fetch';
 
 export const searchOrganizations = async query => {
   const res = await fetch(`/api/vmc/v1.0/orgs?search=${query}`);

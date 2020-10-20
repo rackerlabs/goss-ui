@@ -13,11 +13,11 @@ import {
   Page,
   Pill,
 } from '@janus.team/janus-particles';
-import { RequestStatusPanel } from '../common/RequestStatusPanel';
-import { usePoller } from '../data/poller';
-import { getOrganization } from '../data/organizations';
-import { listSDDCs } from '../data/sddcs';
-import { isGossEnabled } from '../config';
+import { RequestStatusPanel } from '../../common/RequestStatusPanel';
+import { usePoller } from '../../data/poller';
+import { getOrganization } from '../../data/vmc/organizations';
+import { listSDDCs } from '../../data/vmc/sddcs';
+import { isGossEnabled } from '../../config';
 
 const SDDCCard = ({ organization, sddc, domain }) => {
   const card_name_span = <span data-testid="sddc-card-name">{sddc.name}</span>;
@@ -152,7 +152,7 @@ export const OrganizationDetail = ({ match }) => {
             <Grid withGutters>
               {sddcs.map(sddc => (
                 <Grid.Cell xs={12} sm={6} md={4} verticalGutter key={sddc.id}>
-                  <SDDCCard organization={organization} sddc={sddc} domain={domain}/>
+                  <SDDCCard organization={organization} sddc={sddc} domain={domain} />
                 </Grid.Cell>
               ))}
             </Grid>

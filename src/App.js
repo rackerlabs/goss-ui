@@ -3,10 +3,11 @@ import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { ApplicationContainer } from '@janus.team/janus-copilot/cjs/janus-copilot.js';
 import { Page } from '@janus.team/janus-particles';
-import { OrganizationList, OrganizationDetail } from './organizations';
+import { OrganizationList, OrganizationDetail } from './vmc/organizations';
+import { ProjectList, ProjectDetail } from './gcp';
 import { Footer } from './layout/Footer';
 import * as copilot from './copilot';
-import { SDDCDetail } from './sddcs';
+import { SDDCDetail } from './vmc/sddcs';
 
 const CustomerApp = ({ match }) => {
   const copilotProps = {
@@ -36,6 +37,8 @@ const CustomerAppReady = () => {
           <Route path="/goss/vmc/organizations/:organizationId/sddcs/:sddcId" component={SDDCDetail} />
           <Route path="/goss/vmc/organizations/:organizationId" component={OrganizationDetail} />
           <Route path="/goss/vmc/organizations" component={OrganizationList} />
+          <Route path="/goss/gcp/projects/:projectId" component={ProjectDetail} />
+          <Route path="/goss/gcp/projects" component={ProjectList} />
           <Redirect path="/" to="/goss/vmc/organizations" />
         </Switch>
       </Page.Main>

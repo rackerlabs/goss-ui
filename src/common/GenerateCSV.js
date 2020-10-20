@@ -20,13 +20,7 @@ const GenerateCSV = ({ filename, data }) => {
   }, [data]);
 
   return (
-    <Button
-      as="a"
-      download={filename.replace(/\s+/g, '')}
-      target="_blank"
-      href={uri}
-      data-testid="csv-button"
-    >
+    <Button as="a" download={filename.replace(/\s+/g, '')} target="_blank" href={uri} data-testid="csv-button">
       Export Report
     </Button>
   );

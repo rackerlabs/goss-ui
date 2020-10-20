@@ -10,7 +10,7 @@ import {
   Card,
   Grid
 } from '@janus.team/janus-particles';
-import { listJobs } from '../data/jobs';
+import { listJobs } from '../../data/vmc/jobs';
 import _ from 'lodash';
 import {
   GOSSServices,
@@ -20,10 +20,10 @@ import {
   isPoweredOn,
   managedInstanceId,
   generateVMEnrollmentCSVData,
-} from '../data/vms';
+} from '../../data/vmc/vms';
 import { EnrollModal } from './enrollmentOrderSubmission';
 import { VmErrorTableRow } from './vmErrorTableRow';
-import GenerateCSV from '../common/GenerateCSV';
+import GenerateCSV from '../../common/GenerateCSV';
 
 export const GOSSEnrollmentSection = ({ domain, jobs, setJobs, organization, sddc, vms }) => {
   const [isDirty, setDirty] = React.useState(false);
@@ -163,46 +163,53 @@ export const GOSSEnrollmentSection = ({ domain, jobs, setJobs, organization, sdd
       return job.type === 'enroll-vm' && job.status === 'RUNNING';
     });
 
-  const selectAll = (source) => {
+  const selectAll = source => {
     const allInputs = document.querySelectorAll("input[type='checkbox']");
-    allInputs.forEach((it) => {
+    allInputs.forEach(it => {
       it.checked = source;
-    })
-  }
+    });
+  };
 
   // TODO: Implement functionality for filtering VMs based on card that is active
-  const EnrollmentCountCards = ({vms}) => {
+  const EnrollmentCountCards = ({ vms }) => {
     return (
-        <Grid withGutters>
-          <Grid.Cell xs={12} sm={4} md={3} verticalGutter>
-            <Card footer={"Enrolled Instances"}>
-              <div className={"enrollment-card-text"}>{vms.length}</div>
-            </Card>
-          </Grid.Cell>
-          <Grid.Cell xs={12} sm={4} md={3} verticalGutter>
-            <Card footer={"Unenrolled Instances"}>
-              <div className={"enrollment-card-text"}>{vms.length}</div>
-            </Card>
-          </Grid.Cell>
-          <Grid.Cell xs={12} sm={4} md={3} verticalGutter>
-            <Card footer={"Unsupported Instances"}>
-              <div className={"enrollment-card-text"}>{vms.length}</div>
-            </Card>
-          </Grid.Cell>
-        </Grid>
+      <Grid withGutters>
+        <Grid.Cell xs={12} sm={4} md={3} verticalGutter>
+          <Card footer={'Enrolled Instances'}>
+            <div className={'enrollment-card-text'}>{vms.length}</div>
+          </Card>
+        </Grid.Cell>
+        <Grid.Cell xs={12} sm={4} md={3} verticalGutter>
+          <Card footer={'Unenrolled Instances'}>
+            <div className={'enrollment-card-text'}>{vms.length}</div>
+          </Card>
+        </Grid.Cell>
+        <Grid.Cell xs={12} sm={4} md={3} verticalGutter>
+          <Card footer={'Unsupported Instances'}>
+            <div className={'enrollment-card-text'}>{vms.length}</div>
+          </Card>
+        </Grid.Cell>
+      </Grid>
     );
-  }
+  };
 
   const filtersMenu = (
-      <div className={"filtersMenu"}>
-        <div><a href="#">Filter 1</a></div>
+    <div className={'filtersMenu'}>
+      <div>
+        <a href="#">Filter 1</a>
       </div>
+    </div>
   );
 
   const actions = (
-    <div className={"actionButtonGroup"}>
-      <Collection compact className={"actions"}>
-        <hx-disclosure class="hxBtn hxPrimary" aria-controls="actionMenu" loading={isLoading} data-testid="vm-action-enroll">
+    <div className={'actionButtonGroup'}>
+      <Collection compact className={'actions'}>
+        <hx-disclosure
+          class="hxBtn hxPrimary"
+          aria-controls="actionMenu"
+          loading={isLoading}
+          data-testid="vm-action-enroll"
+        >
           Actions
         </hx-disclosure>
         <hx-popover id="actionMenu" position="bottom-center">
@@ -214,8 +221,8 @@ export const GOSSEnrollmentSection = ({ domain, jobs, setJobs, organization, sdd
           </hx-div>
         </hx-popover>
         <GenerateCSV
-            filename={`VM-Enrollement--${organization.display_name}--${sddc.name}.csv`}
-            data={generateVMEnrollmentCSVData(vms)}
+          filename={`VM-Enrollement--${organization.display_name}--${sddc.name}.csv`}
+          data={generateVMEnrollmentCSVData(vms)}
         />
         {/*{isEnrollModalVisible && ( // TODO: remove buttons and port functionality to Actions menu
           <EnrollModal
@@ -237,9 +244,10 @@ export const GOSSEnrollmentSection = ({ domain, jobs, setJobs, organization, sdd
           Cancel
         </Button>*/}
       </Collection>
-      <div className={"filters"}>
+      <div className={'filters'}>
         <hx-disclosure class="hxBtn" aria-controls="filters">
-          Filters&nbsp;&nbsp;<i className="fa fa-filter" aria-hidden="true"/>
+          Filters&nbsp;&nbsp;
+          <i className="fa fa-filter" aria-hidden="true" />
         </hx-disclosure>
         <hx-popover id="filters" position="bottom-center">
           <header>Filter Header</header>
@@ -277,15 +285,15 @@ export const GOSSEnrollmentSection = ({ domain, jobs, setJobs, organization, sdd
           </div>
         </React.Fragment>
       )}
-      <EnrollmentCountCards vms={vms}/>
+      <EnrollmentCountCards vms={vms} />
       {actions}
-      <br/>
+      <br />
       <Table.Wrapper>
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.Cell header={true} compact={true} className="goss-vm-table-row__checkbox" >
-                <input type="checkbox" onClick={e => selectAll(e.target.checked)}/>
+              <Table.Cell header={true} compact={true} className="goss-vm-table-row__checkbox">
+                <input type="checkbox" onClick={e => selectAll(e.target.checked)} />
               </Table.Cell>
               <Table.Cell header={true} compact={true} className="goss-vm-table-row__job-state">
                 Status
@@ -365,30 +373,27 @@ const VMTableRow = ({
 
   const toggleShowVmMenu = () => {
     setIsShowingVmMenu(!isShowingVmMenu);
-  }
+  };
 
   return (
     <Table.Row data-testid="vm-table-row" style={{ background: isVmBeingEnrolled ? '#bbdefb' : 'none' }}>
       <Table.Cell compact={true}>
-        <input
-            type="checkbox"
-            disabled={isVmBeingEnrolled || !poweredOn}
-            data-testid="vm-table-row-monitoring"
-        />
+        <input type="checkbox" disabled={isVmBeingEnrolled || !poweredOn} data-testid="vm-table-row-monitoring" />
       </Table.Cell>
       <Table.Cell
         compact={true}
-        className={`goss-vm-table-row__job-state ${hasJobError && 'goss-vm-table-row__job-error-state'}`}>
+        className={`goss-vm-table-row__job-state ${hasJobError && 'goss-vm-table-row__job-error-state'}`}
+      >
         <Grid>
           <Grid.Cell lg={6}>
             <i className="fas fa-circle"></i>
           </Grid.Cell>
           <Grid.Cell lg={6}>
             <Popover
-                content={"VM Menu"}
-                placement="top"
-                visible={isShowingVmMenu}
-                onHide={() => setIsShowingVmMenu(false)}
+              content={'VM Menu'}
+              placement="top"
+              visible={isShowingVmMenu}
+              onHide={() => setIsShowingVmMenu(false)}
             >
               <Button.WithRef tertiary onClick={toggleShowVmMenu}>
                 <i className="fas fa-cog"></i>
@@ -410,12 +415,8 @@ const VMTableRow = ({
           <strong data-testid="vm-table-row-name">{vm.name}</strong>
         </div>
       </Table.Cell>
-      <Table.Cell compact={true}>
-        {vm?.serviceGroups}
-      </Table.Cell>
-      <Table.Cell compact={true}>
-        {vm?.tagGroups}
-      </Table.Cell>
+      <Table.Cell compact={true}>{vm?.serviceGroups}</Table.Cell>
+      <Table.Cell compact={true}>{vm?.tagGroups}</Table.Cell>
       {isVmBeingEnrolled ? (
         <Table.Cell
           compact={true}
@@ -458,42 +459,42 @@ const VMTableRow = ({
           <Table.Cell compact={true} className="goss-vm-table-row__enrollment">
             <IsGOSSSupported vm={vm}>
               <input
-                  type="checkbox"
-                  disabled={isVmBeingEnrolled || !isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) || !poweredOn}
-                  checked={
-                    isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) &&
-                    isEnrolledInService(vm, GOSSServices.BACKUP)
-                  }
-                  onChange={() => stageEnrollment(vm, GOSSServices.BACKUP)}
-                  data-testid="vm-table-row-monitoring"
+                type="checkbox"
+                disabled={isVmBeingEnrolled || !isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) || !poweredOn}
+                checked={
+                  isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) &&
+                  isEnrolledInService(vm, GOSSServices.BACKUP)
+                }
+                onChange={() => stageEnrollment(vm, GOSSServices.BACKUP)}
+                data-testid="vm-table-row-monitoring"
               />
             </IsGOSSSupported>
           </Table.Cell>
           <Table.Cell compact={true} className="goss-vm-table-row__enrollment">
             <IsGOSSSupported vm={vm}>
               <input
-                  type="checkbox"
-                  disabled={isVmBeingEnrolled || !isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) || !poweredOn}
-                  checked={
-                    isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) &&
-                    isEnrolledInService(vm, GOSSServices.DISASTER_RECOVERY)
-                  }
-                  onChange={() => stageEnrollment(vm, GOSSServices.DISASTER_RECOVERY)}
-                  data-testid="vm-table-row-monitoring"
+                type="checkbox"
+                disabled={isVmBeingEnrolled || !isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) || !poweredOn}
+                checked={
+                  isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) &&
+                  isEnrolledInService(vm, GOSSServices.DISASTER_RECOVERY)
+                }
+                onChange={() => stageEnrollment(vm, GOSSServices.DISASTER_RECOVERY)}
+                data-testid="vm-table-row-monitoring"
               />
             </IsGOSSSupported>
           </Table.Cell>
           <Table.Cell compact={true} className="goss-vm-table-row__enrollment">
             <IsGOSSSupported vm={vm}>
               <input
-                  type="checkbox"
-                  disabled={isVmBeingEnrolled || !isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) || !poweredOn}
-                  checked={
-                    isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) &&
-                    isEnrolledInService(vm, GOSSServices.MONITORING)
-                  }
-                  onChange={() => stageEnrollment(vm, GOSSServices.MONITORING)}
-                  data-testid="vm-table-row-monitoring"
+                type="checkbox"
+                disabled={isVmBeingEnrolled || !isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) || !poweredOn}
+                checked={
+                  isEnrolledInService(vm, GOSSServices.OS_ADMINISTRATION) &&
+                  isEnrolledInService(vm, GOSSServices.MONITORING)
+                }
+                onChange={() => stageEnrollment(vm, GOSSServices.MONITORING)}
+                data-testid="vm-table-row-monitoring"
               />
             </IsGOSSSupported>
           </Table.Cell>
